@@ -1,5 +1,4 @@
-
-
+// ------------------- THE PROLOG PROGRAM --------------------------------
 var program = String.raw`
 :- use_module(library(lists)).
 :- use_module(library(dom)).
@@ -107,32 +106,71 @@ get_valid_rpn(NumList, RPNNotation, RPNResult):-
     permutation(NumOperatorList, RPNNotation),
     get_rpn_result(RPNNotation, RPNResult).
         `;
-        const QUERY_LIMIT = 10000000;
-        var session = pl.create(QUERY_LIMIT);
+// -------------------------------- END ----------------------------------
 
-        session.consult(program,{
-            success: function() {
-                console.log("SUCCESS");
-                session.query("get_countdown_infix([1, 2, 3, 4], 11, X).", {
-                    success: function(goal) {
-                        console.log("QUERY SUCCESS");
-                        session.answer({
-                            success: function(ans) {
-                                console.log("ANSWER SUCCESS");
-                                console.log(session.format_answer(ans));
-                            },
-                            error: function(err) {
-                                console.log("ERROR");
-                                console.log(err);
-                            },
-                        });
-                    },
-                    error: function(err) {
-                        console.log("QUERY FAILED");
-                        console.log(err);
-                    },
-                });
-            }, error: function(err) {
-                console.log(err);
-            },
-        });
+// --------------------------- GAME LOGIC --------------------------------
+// Variable Initialization
+var input_1 = document.getElementById("inp-1");
+var input_2 = document.getElementById("inp-2");
+var input_3 = document.getElementById("inp-3");
+var input_4 = document.getElementById("inp-4");
+var input_list = [input_1, input_2, input_3, input_4];
+
+var target = document.getElementById("target");
+var submit_form = document.getElementById("submit-form");
+
+submit_form.addEventListener("submit", function(f) {
+    f.preventDefault(); // Prevents form from being submitted
+    get_answer();
+});
+
+// Tau Prolog logic
+const QUERY_LIMIT = 10000000;
+var session = pl.create(QUERY_LIMIT);
+
+function get_answer() {
+    // Generating the question string
+    var query_string = "[";
+    var prolog_query = "get_countdown_infix(QUERY).";
+
+    for (let i = 0; i < input_list.length; i++) {
+        query_string += input_list[i].value;
+        if (i != input_list.length - 1) {
+            query_string += ",";
+        }
+    }
+
+    query_string += "],";
+    query_string += target.value;
+    query_string += ",X";
+
+    prolog_query = prolog_query.replace("QUERY", query_string);
+    console.log(prolog_query);
+
+    session.consult(program,{
+        success: function() {
+            console.log("SUCCESS");
+            session.query(prolog_query, {
+                success: function(goal) {
+                    console.log("QUERY SUCCESS");
+                    session.answer({
+                        success: function(ans) {
+                            console.log("ANSWER SUCCESS");
+                            console.log(session.format_answer(ans));
+                        },
+                        error: function(err) {
+                            console.log("ERROR");
+                            console.log(err);
+                        },
+                    });
+                },
+                error: function(err) {
+                    console.log("QUERY FAILED");
+                    console.log(err);
+                },
+            });
+        }, error: function(err) {
+            console.log(err);
+        },
+    });
+}

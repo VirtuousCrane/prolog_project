@@ -7,7 +7,7 @@
     <script type="text/javascript" src="modules/core.js"></script>
     <script type="text/javascript" src="modules/lists.js"></script>
     <script type="text/javascript" src="modules/dom.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="main.js" defer></script>
 </head>
 <body>
     <div id="main">
@@ -19,21 +19,21 @@
                 <div id="input-container-header">
                     <div id="left-input">
                         <form>
-                            <input class="user-input" type="text"></input>
-                            <input class="user-input" type="text"></input>
-                            <input class="user-input" type="text"></input>
-                            <input class="user-input" type="text"></input>
+                            <input id="inp-1" class="user-input" type="text"></input>
+                            <input id="inp-2" class="user-input" type="text"></input>
+                            <input id="inp-3" class="user-input" type="text"></input>
+                            <input id="inp-4" class="user-input" type="text"></input>
                         </form>
                     </div>
                     <div id="right-input">
                         <form>
-                            <input class="user-input" type="text" placeholder='Target'></input>
+                            <input id="target" class="user-input" type="text" placeholder='Target'></input>
                         </form>
                     </div>
                 </div>
                 <div id="input-container-footer">
-                    <form>
-                        <input id="submit-user-input" type="button" value="Submit"></input>
+                    <form id="submit-form">
+                        <input id="submit-user-input" type="submit" value="Submit"></input>
                     </form>
                 </div>
             </div>
