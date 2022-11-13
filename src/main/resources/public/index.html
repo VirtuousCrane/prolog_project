@@ -115,25 +115,28 @@ get_valid_rpn(NumList, RPNNotation, RPNResult):-
     permutation(NumOperatorList, RPNNotation),
     get_rpn_result(RPNNotation, RPNResult).
         `;
-        var session = pl.create(1000);
+        const QUERY_LIMIT = 10000000;
+        var session = pl.create(QUERY_LIMIT);
 
         session.consult(program,{
             success: function() {
                 console.log("SUCCESS");
-                session.query("get_countdown_rpn([1, 2, 3, 4], 10, X).", {
+                session.query("get_countdown_infix([1, 2, 3, 4], 11, X).", {
                     success: function(goal) {
                         console.log("QUERY SUCCESS");
                         session.answer({
                             success: function(ans) {
                                 console.log("ANSWER SUCCESS");
-                                console.log(ans);
+                                console.log(session.format_answer(ans));
                             },
                             error: function(err) {
+                                console.log("ERROR");
                                 console.log(err);
                             },
                         });
                     },
                     error: function(err) {
+                        console.log("QUERY FAILED");
                         console.log(err);
                     },
                 });
