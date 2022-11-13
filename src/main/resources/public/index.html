@@ -90,23 +90,15 @@ get_countdown_infix(NumList, Target, InfixNotation):-
     get_countdown_rpn(NumList, Target, RPNNotation),
     get_infix(RPNNotation, InfixNotation).
 
-is_head([Head|_], Head).
-
-is_sorted([]).
-is_sorted([_]).
-is_sorted([Head|Tail]):-
-    is_sorted(Tail),
-    is_head(Tail, SortedListHead),
-    Head =< SortedListHead.
 all_operator([]).
 all_operator([H|T]):-
     operator(H),
     all_operator(T).
 
 get_operator_combination_with_repetition_list(Len, X):-
-    length(X, Len),
-    all_operator(X).
-    %is_sorted(X).
+    length(X, Len), % produce list of holding variable such as [_, _, _,]
+    all_operator(X),
+    msort(X, X). % Check if list is sorted, does not remove duplicates
 
 concat_list([], List, List).
 concat_list([H|List1], X, [H|List3]):-
