@@ -139,6 +139,34 @@ input{
   justify-content: center;
   align-items: center;
 }
+#output-answer{
+  height: 100%;
+  width: 80%;
+  border-right: solid 1px #252422;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#answer{
+  height: 80%;
+  width: 92%;
+  background-color: white ;
+
+  font-size: 42px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#button-container{
+  height: 100%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #submit-user-input{
   height: 28px;
   width: 64px;
