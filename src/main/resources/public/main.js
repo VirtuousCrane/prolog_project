@@ -116,21 +116,30 @@ var input_3 = document.getElementById("inp-3");
 var input_4 = document.getElementById("inp-4");
 var input_list = [input_1, input_2, input_3, input_4];
 
+var ans_div = document.querySelector("#answer");
 var target = document.getElementById("target");
 var submit_form = document.getElementById("submit-form");
+var more_answer_form = document.getElementById("more-answer-form");
+var answer_list = [];
 
 submit_form.addEventListener("submit", function(f) {
     f.preventDefault(); // Prevents form from being submitted
     get_answer();
 });
 
+more_answer_form.addEventListener("submit", function(f) {
+    f.preventDefault();
+    get_more_answer();
+});
+
 // Tau Prolog logic
 const QUERY_LIMIT = 10000000;
 var session = pl.create(QUERY_LIMIT);
+var more_answer_btn = document.querySelector("#more-answer");
+more_answer_btn.style.display = "none";
 
 function get_answer() {
     // Generating the question string
-    let ans_div = document.querySelector("#answer");
     var query_string = "[";
     var prolog_query = "get_countdown_infix(QUERY).";
 
@@ -157,6 +166,7 @@ function get_answer() {
                     session.answer({
                         success: function(ans) {
                             console.log("ANSWER SUCCESS");
+                            answer_list = [];
                             let ans_string = session.format_answer(ans);
                             ans_string = ans_string.replaceAll("[a]", "+");
                             ans_string = ans_string.replaceAll("[s]", "-");
@@ -167,6 +177,8 @@ function get_answer() {
                             ans_string = ans_string.replaceAll(",", "");
 
                             ans_div.innerHTML = ans_string;
+                            answer_list.push(ans_string);
+                            more_answer_btn.style.display = "block";
                         },
                         error: function(err) {
                             console.log("ERROR");
@@ -198,6 +210,9 @@ function get_more_answer() {
             ans_string = ans_string.replaceAll("]", ")");
             ans_string = ans_string.replaceAll(",", "");
 
+            if (answer_list.includes(ans_string)) {
+                get_more_answer();
+            }
             ans_div.innerHTML = ans_string;
         },
         error: function(err) {
