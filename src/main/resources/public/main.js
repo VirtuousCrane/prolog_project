@@ -130,6 +130,7 @@ var session = pl.create(QUERY_LIMIT);
 
 function get_answer() {
     // Generating the question string
+    let ans_div = document.querySelector("#answer");
     var query_string = "[";
     var prolog_query = "get_countdown_infix(QUERY).";
 
@@ -156,7 +157,16 @@ function get_answer() {
                     session.answer({
                         success: function(ans) {
                             console.log("ANSWER SUCCESS");
-                            console.log(session.format_answer(ans));
+                            let ans_string = session.format_answer(ans);
+                            ans_string = ans_string.replaceAll("[a]", "+");
+                            ans_string = ans_string.replaceAll("[s]", "-");
+                            ans_string = ans_string.replaceAll("[m]", "*");
+                            ans_string = ans_string.replaceAll("[d]", "/");
+                            ans_string = ans_string.replaceAll("[", "(");
+                            ans_string = ans_string.replaceAll("]", ")");
+                            ans_string = ans_string.replaceAll(",", "");
+
+                            ans_div.innerHTML = ans_string;
                         },
                         error: function(err) {
                             console.log("ERROR");
@@ -170,6 +180,28 @@ function get_answer() {
                 },
             });
         }, error: function(err) {
+            console.log(err);
+        },
+    });
+}
+
+function get_more_answer() {
+    session.answer({
+        success: function(ans) {
+            console.log("ANSWER SUCCESS");
+            let ans_string = session.format_answer(ans);
+            ans_string = ans_string.replaceAll("[a]", "+");
+            ans_string = ans_string.replaceAll("[s]", "-");
+            ans_string = ans_string.replaceAll("[m]", "*");
+            ans_string = ans_string.replaceAll("[d]", "/");
+            ans_string = ans_string.replaceAll("[", "(");
+            ans_string = ans_string.replaceAll("]", ")");
+            ans_string = ans_string.replaceAll(",", "");
+
+            ans_div.innerHTML = ans_string;
+        },
+        error: function(err) {
+            console.log("ERROR");
             console.log(err);
         },
     });

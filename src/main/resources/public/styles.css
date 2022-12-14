@@ -108,7 +108,16 @@ table {
   align-items: center;
   justify-content: center;
 }
-.user-input{
+/* .user-input{
+  height: 52px;
+  width: 52px;
+  background-color: white;
+  color: black;
+  margin: 8px;
+  border: solid 1px #252422;
+  text-align: center;
+} */
+input{
   height: 52px;
   width: 52px;
 
@@ -119,6 +128,7 @@ table {
 
   text-align: center;
 }
+
 #input-container-footer{
   height: 40%;
   width: 100%;
@@ -127,11 +137,42 @@ table {
   justify-content: center;
   align-items: center;
 }
+#output-answer{
+  height: 100%;
+  width: 80%;
+  border-right: solid 1px #252422;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#answer{
+  height: 80%;
+  width: 92%;
+  background-color: white ;
+
+  font-size: 42px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#button-container{
+  height: 100%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #submit-user-input{
   height: 28px;
   width: 64px;
-  background-color: lightgrey;
+  background-color: lightgray;
   color: black;
+}
+#submit-user-input:active{
+  background-color: grey;
 }
 
 /* Game Container Body End */
