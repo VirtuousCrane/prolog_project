@@ -183,16 +183,19 @@ function get_answer() {
                         error: function(err) {
                             console.log("ERROR");
                             console.log(err);
+                            ans_div.innerHTML = "ERROR";
                         },
                     });
                 },
                 error: function(err) {
                     console.log("QUERY FAILED");
                     console.log(err);
+                    ans_div.innerHTML = "ERROR";
                 },
             });
         }, error: function(err) {
             console.log(err);
+            ans_div.innerHTML = "ERROR";
         },
     });
 }
@@ -218,6 +221,7 @@ function get_more_answer() {
         error: function(err) {
             console.log("ERROR");
             console.log(err);
+            ans_div.innerHTML = "ERROR";
         },
     });
 }
